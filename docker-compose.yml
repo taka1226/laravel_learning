@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-    ryoko:
+    backend:
         driver: bridge
 
 volumes:
@@ -29,13 +29,13 @@ services:
             - 4430:443
         command: php artisan serve --host 0.0.0.0
         networks:
-            - ryoko
+            - backend
 
     mysql:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: ryokodb
+            MYSQL_DATABASE: laraveldb
             MYSQL_USER: dbuser
             MYSQL_PASSWORD: secret
         volumes:
@@ -43,7 +43,7 @@ services:
         ports:
             - 13306:3306
         networks:
-            - ryoko
+            - backend
 
     mailcatcher:
         image: schickling/mailcatcher
@@ -51,7 +51,7 @@ services:
             - "1080:1080"
             - "1025:1025"
         networks:
-            - ryoko
+            - backend
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -64,4 +64,4 @@ services:
         volumes:
             - /sessions
         networks:
-            - ryoko
+            - backend
