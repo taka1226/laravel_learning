@@ -26,8 +26,6 @@ services:
             - "node_modules:/var/www/html/node_modules"
         ports:
             - 8000:8000
-            - 4430:443
-        command: php artisan serve --host 0.0.0.0
         networks:
             - backend
 
@@ -40,8 +38,6 @@ services:
             MYSQL_PASSWORD: secret
         volumes:
             - mysql-database:/var/lib/mysql
-        ports:
-            - 13306:3306
         networks:
             - backend
 
