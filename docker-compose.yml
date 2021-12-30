@@ -1,0 +1,67 @@
+version: "3"
+
+networks:
+    ryoko:
+        driver: bridge
+
+volumes:
+    mysql-database:
+        driver: local
+    mailcatcher-data:
+        driver: local
+    vendor:
+        driver: local
+    node_modules:
+        driver: local
+
+services:
+    web:
+        build:
+            context: .
+            args:
+                SKIP_INSTALL_SCRIPT_ON_DOCKER_BUILD: "true"
+        volumes:
+            - ".:/var/www/html:cached"
+            - "vendor:/var/www/html/vendor"
+            - "node_modules:/var/www/html/node_modules"
+        ports:
+            - 8000:8000
+            - 4430:443
+        command: php artisan serve --host 0.0.0.0
+        networks:
+            - ryoko
+
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ryokodb
+            MYSQL_USER: dbuser
+            MYSQL_PASSWORD: secret
+        volumes:
+            - mysql-database:/var/lib/mysql
+        ports:
+            - 13306:3306
+        networks:
+            - ryoko
+
+    mailcatcher:
+        image: schickling/mailcatcher
+        ports:
+            - "1080:1080"
+            - "1025:1025"
+        networks:
+            - ryoko
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            - PMA_HOST=mysql
+        ports:
+            - 10083:80
+        depends_on:
+            - mysql
+        volumes:
+            - /sessions
+        networks:
+            - ryoko
