@@ -52,4 +52,13 @@ COPY . /var/www/html
 
 RUN COMPOSER_MEMORY_LIMIT=-1 $(which composer) install && chown -R www-data:www-data . && npm install
 
+
+ARG USERNAME=user
+ARG GROUPNAME=user
+ARG UID
+ARG GID
+RUN groupadd -g $GID $GROUPNAME && \
+    useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
+USER $USERNAME
+
 CMD ["php","artisan","serve","--host","0.0.0.0"];
