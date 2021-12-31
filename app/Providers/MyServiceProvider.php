@@ -16,7 +16,6 @@ class MyServiceProvider extends ServiceProvider
         //
         app()->singleton('myservice', 'App\MyClasses\PowerMyService');
         app()->singleton('App\MyClasses\MyServiceInterface', 'App\MyClasses\PowerMyService');
-        echo '<div>myservice</div>';
     }
 
     /**
