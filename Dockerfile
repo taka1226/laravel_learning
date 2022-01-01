@@ -57,7 +57,7 @@ ARG USERNAME=user
 ARG GROUPNAME=user
 ARG UID
 ARG GID
-RUN groupadd -g $GID $GROUPNAME && \
+RUN groupadd -f -g $GID $GROUPNAME && \
     useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
 USER $USERNAME
 
