@@ -28,4 +28,5 @@ jobs:
         run: |
           docker-compose build --build-arg UID=$(id -u) --build-arg GID=$(id -g)
           docker-compose up -d
+          sleep 30
           docker-compose exec -T web bash create_db.sh
