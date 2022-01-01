@@ -24,5 +24,6 @@ jobs:
       - name: compose-run
         shell: bash
         run: |
+          docker-compose build --build-arg UID=$(id -u) --build-arg GID=$(id -g)
           docker-compose up -d
           docker-compose exec -T app bash start-db.sh
