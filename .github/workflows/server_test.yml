@@ -26,11 +26,4 @@ jobs:
         run: |
           docker-compose build --build-arg UID=$(id -u) --build-arg GID=$(id -g)
           docker-compose up -d
-      - name: sleep for 30 seconds
-        shell: bash
-        run: |
-          sleep 30
-      - name: migrate
-        shell: bash
-        run: |
-          docker-compose exec -T app bash start-db.sh
+          docker-compose exec -T web bash start-db.sh
