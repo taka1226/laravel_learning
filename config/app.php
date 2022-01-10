@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\MyServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
     ],
 
@@ -231,7 +233,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'myservice' => \App\Facades\MyService::class,
+        'myservice' => App\Facades\MyService::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],

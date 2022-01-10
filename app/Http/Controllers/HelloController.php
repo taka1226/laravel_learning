@@ -20,19 +20,35 @@ class HelloController extends Controller
     {
     }
 
-    public function index(Request $request)
+    public function index(int $id = -1)
     {
-        MyJob::dispatch()->delay(now()->addSeconds(10));
-        $msg = 'show people record.';
-        $result = Person::get();
+        MyService::setId($id);
         $data = [
-            'msg' => $msg,
-            'data' => $result,
+            'msg' => MyService::say(),
+            'data' => MyService::alldata()
         ];
+
         return view('hello.index', $data);
 
         //return Excel::download(new UserExport(['name', 'id']), 'users.csv');
     }
+
+    public function send(Request $request)
+    {
+        $input = $request->input('find');
+        $msg = 'search: '.$input;
+        Person::get(['*'])->searchable();
+        $result = Person::search($input)->get();
+
+        $data = [
+            'input' => $input,
+            'msg' => $msg,
+            'data' => $result,
+        ];
+
+        return view('hello.index', $data);
+    }
+
 
     public function upload(Request $request)
     {
