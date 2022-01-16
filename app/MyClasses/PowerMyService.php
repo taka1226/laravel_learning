@@ -3,6 +3,8 @@ namespace App\MyClasses;
 
 class PowerMyService implements MyServiceInterface
 {
+    
+
     private $id = -1;
     private $msg = 'no id...';
     private $data = ['いちご', 'りんご', 'バナナ', 'みかん', 'ぶどう'];

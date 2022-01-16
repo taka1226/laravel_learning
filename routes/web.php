@@ -32,7 +32,7 @@ Route::get('/mail', function(){
 
 Route::get('/hello', '\App\Http\Controllers\HelloController@index')->name('hello');
 Route::post('/hello', '\App\Http\Controllers\HelloController@send')->name('hello_send');
-// Route::get('/hello/{id}/{name}', '\App\Http\Controllers\HelloController@save')->name('hello_save');
+Route::get('/hello/{id}/{name}', '\App\Http\Controllers\HelloController@save')->name('hello_save');
 
 
 Route::get('/hello/json', '\App\Http\Controllers\HelloController@json');

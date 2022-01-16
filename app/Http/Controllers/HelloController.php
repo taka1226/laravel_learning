@@ -23,11 +23,27 @@ class HelloController extends Controller
     public function index(int $id = -1)
     {
         MyService::setId($id);
+        //dd(MyService->id);
         $data = [
             'msg' => MyService::say(),
             'data' => MyService::alldata()
         ];
 
+        // $model = Person::find(1);
+        // $model->update([
+        //     'name' => 'ccc'
+        // ]);
+        // $person = Person::create([
+        //    'name' => 'ddd',
+        //     'mail' => 'ddd@example.com',
+        //     'age' => 14
+        // ]);
+        DB::table('people')->insert([
+            'name' => 'ee',
+            'mail' => 'eee@example.com',
+            'age' => 20
+        ]);
+        //$person->save();
         return view('hello.index', $data);
 
         //return Excel::download(new UserExport(['name', 'id']), 'users.csv');
@@ -68,10 +84,12 @@ class HelloController extends Controller
 
     public function save($id, $name)
     {
+        //dd(Person::find($id));
         $record = Person::find($id);
         $record->name = $name;
+        //dd($record);
         $record->save();
-        return redirect()->route('hello');
+        //return redirect()->route('hello');
     }
 
     public function json($id = -1)
